@@ -9,6 +9,10 @@ link: https://www.docker.com
 
 Usage
 -------
+#### Download
+
+https://github.com/darakuneko/gpk_fwmaker/archive/refs/heads/main.zip
+
 ### Image Build
 ``` 
 cd gpk_fwmaker
