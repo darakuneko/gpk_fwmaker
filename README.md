@@ -1,0 +1,83 @@
+# GPK FWMaker
+Make QMK Firmware with CLI     
+May correspond to Vial....    
+
+Before use
+-------
+Install Docker   
+link: https://www.docker.com
+
+Usage
+-------
+### Image Build
+``` 
+cd gpk_fwmaker
+docker-compose build
+```
+
+###  Startup
+``` 
+cd gpk_fwmaker
+docker-compose up -d
+```
+
+### Copy Keyboard File
+"GPK_FWMAKER" directory is now available in the home directory.  
+    
+e.g.   
+windows: C:\Users\xxxx\GPK_FWMAKER   
+mac: /Users/xxxx/GPK_FWMAKER   
+ubuntu: /home/xxxx/GPK_FWMAKER    
+
+Copy the keyboard files to "GPK_FWMAKER" directory.   
+Firmware is also created here.   
+![dir](https://user-images.githubusercontent.com/5214078/207864849-c199464f-9b03-4028-b148-0688e9e5603e.jpg)
+
+### Build Firmware
+GPK FWMaker's API is used to build a firmware.    
+   
+e.g.   
+``` 
+windows
+curl -X POST -H "Content-Type: application/json" -d '{\"kb\": \"reviung/reviung41\", \"km\": \"default", \"tag\": \"0.19.3\"}' 127.0.0.1:3000/build/qmk  | jq -r '.stderr, .stdout'
+
+other
+curl -X POST -H "Content-Type: application/json" -d '{"kb": "reviung/reviung41", "km": "default", "tag": "0.19.3"}' 127.0.0.1:3000/build/qmk | jq -r '.stderr, .stdout'
+```
+
+Recommend: It is easier to see when formatted using the jq command.   
+
+### API
+|    |  url  |  method |                   response                    |  parameter  |
+| :---: | :---: | :---: |:---------------------------------------------:| :---: |
+|  Build  |  /build/qmk  |  post  | json<br>{ stderr: string,<br>stdout: string } | kb(required): string<br>km(required): string<br>tag(required): string |
+|  TagList  |  /tags/qmk  |  get  |                     array                     | |
+|  Update  |  /update/qmk  |  get  |                    string                     | |
+
+Port: 3000
+
+#### Build
+Build firmware.
+The built firmware is created in the GPK_FWMAKER directory.   
+kb is the keyboard name.  
+km is the keymap.  
+tag can be taken from the TagList api or check the qmk's tag page(https://github.com/qmk/qmk_firmware/tags). 
+
+e.g.    
+For command  
+make reviung/reviung41:default  
+   
+Parameter  
+kb: reviung/reviung41  
+km: default 
+
+#### TagList
+Tag list of cloned repositories.    
+    
+#### Update
+Clone again to the latest state. 
+     
+------- 
+☕️☕️☕️ Donation ☕️☕️☕️   
+[Amazon](https://www.amazon.co.jp/hz/wishlist/ls/66VQJTRHISQT) or [Ko-fi](https://ko-fi.com/darakuneko)  
+

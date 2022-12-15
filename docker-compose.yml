@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  gpk_fwmaker:
+    build: .
+    volumes:
+      - ~/GPK_FWMAKER:/root/keyboards
+    tty: true
+    stdin_open: true
+    ports:
+      - 3000:3000
