@@ -7,18 +7,15 @@ const qmkCmd = async(cmd) => await exec(`cd ${qmkDir} && ${cmd}`)
 const findFirmwareLine = `find /root/qmk_firmware/* -maxdepth 0 -regex ".*\\.\\(bin\\|hex\\|uf2\\)"`
 
 const tagZeroFill2Int = (str) => {
-    const n = str
+    const s = str
             .replace(/\.(\d{1})\./, ".0$1.")
             .replace(/\.(\d{2})$/, ".0$1")
             .replace(/\.(\d{1})$/, ".00$1")
             .replace(/\./g, "")
-    return parseInt(n)
+    return parseInt(s)
 }
 
-const parseResponse = (str) => str && str.length > 0 ? str.replace(/\u001b\[.*?m/g, "") : ""
-
 const command = {
-    exec: exec,
     tags: async () => {
         const result = await qmkCmd(`git ls-remote --tags`)
 
@@ -42,10 +39,7 @@ const command = {
     buildQmkFirmware: async (kb, km) => {
         await exec(`${findFirmwareLine} -delete`)
         const result = await exec(`qmk compile -kb ${kb} -km ${km}`)
-        return {    
-            stderr: parseResponse(result.stderr),
-            stdout: parseResponse(result.stdout)
-        } 
+        return result
     },
     updateQmk: async () => {
         await exec("rm -rf /root/qmk_firmware")

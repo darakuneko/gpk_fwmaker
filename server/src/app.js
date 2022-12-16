@@ -1,10 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cmd = require('./command')
-const { currentTag } = require('./command')
-const exec = cmd.exec
 const app = express()
-
 
 const server = app.listen(3000, async() =>console.log("Node.js is listening to PORT:" + server.address().port))
 
@@ -17,7 +14,6 @@ app.get('/tags/qmk', async (req, res) => {
     const tags = await cmd.tags()
     res.send(tags)
 })
-
 
 app.get('/update/qmk', async (req, res) => {
     await cmd.updateQmk()
