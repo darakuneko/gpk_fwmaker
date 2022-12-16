@@ -26,4 +26,4 @@ WORKDIR /server
 
 RUN npm install
 
-CMD chmod -R 777 /root/keyboards && node ./src/app.js
+CMD node ./src/app.js

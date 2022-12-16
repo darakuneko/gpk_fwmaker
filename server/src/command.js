@@ -50,7 +50,7 @@ const command = {
         await exec(`cp -rf /root/keyboards/${kbDir} /root/qmk_firmware/keyboards`)
     },
     cpFirmware: async () => {
-        await exec(`${findFirmwareLine} -type f -exec cp {} /root/keyboards \\; && chmod -R 777 /root/keyboards`)
+        await exec(`${findFirmwareLine} -type f -exec cp {} /root/keyboards \\;`)
     }
 }
 module.exports = command;
