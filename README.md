@@ -43,10 +43,10 @@ GPK FWMaker's API is used to build a firmware.
 e.g.   
 ``` 
 windows
-curl -X POST -H "Content-Type: application/json" -d '{\"kb\": \"reviung/reviung41\", \"km\": \"default", \"tag\": \"0.19.3\"}' 127.0.0.1:3000/build/qmk  | jq -r '.stderr, .stdout'
+curl -X POST -H "Content-Type: application/json" -d '{\"kb\": \"reviung/reviung41\", \"km\": \"default", \"tag\": \"0.19.3\"}' 127.0.0.1:3123/build/qmk  | jq -r '.stderr, .stdout'
 
 other
-curl -X POST -H "Content-Type: application/json" -d '{"kb": "reviung/reviung41", "km": "default", "tag": "0.19.3"}' 127.0.0.1:3000/build/qmk | jq -r '.stderr, .stdout'
+curl -X POST -H "Content-Type: application/json" -d '{"kb": "reviung/reviung41", "km": "default", "tag": "0.19.3"}' 127.0.0.1:3123/build/qmk | jq -r '.stderr, .stdout'
 ```
 
 Recommend: It is easier to see when formatted using the jq command.   
@@ -58,7 +58,7 @@ Recommend: It is easier to see when formatted using the jq command.
 |  TagList  |  /tags/qmk  |  get  |                     array                     | |
 |  Update  |  /update/qmk  |  get  |                    string                     | |
 
-Port: 3000
+Port: 3123
 
 #### Build
 Build firmware.
