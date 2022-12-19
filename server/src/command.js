@@ -32,7 +32,10 @@ const command = {
     checkoutQmk: async (tag) => {
         await exec("rm -rf /root/qmk_firmware/keyboards/*")
         await qmkCmd(`git reset --hard HEAD^`)
-        await qmkCmd(`git checkout -b ${tag} refs/tags/${tag}`)
+        try {  await qmkCmd(`git checkout -b ${tag} refs/tags/${tag}`) } catch (e){
+            await qmkCmd(`git branch -D ${tag}`)
+            await qmkCmd(`git checkout -b ${tag} refs/tags/${tag}`)
+        }
         await qmkCmd(`make git-submodule`)
         await exec(`rm -rf /root/qmk_firmware/keyboards/*`)
     },
