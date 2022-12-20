@@ -23,7 +23,7 @@ app.get('/update/qmk', async (req, res) => {
 app.post('/build/qmk', async(req, res) => {
     const kb = req.body.kb
     const kbDir = kb.replace(/\/.*/g, "")
-    const km = req.body.km   
+    const km = req.body.km.replace(/:.*|flash/g, "")
     const tag = req.body.tag
 
     try {
