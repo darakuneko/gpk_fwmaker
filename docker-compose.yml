@@ -4,7 +4,7 @@ services:
   gpk_fwmaker:
     build: .
     volumes:
-      - ~/GPK_FWMAKER:/root/keyboards
+      - ~/GPKFW:/root/keyboards
     tty: true
     stdin_open: true
     ports:

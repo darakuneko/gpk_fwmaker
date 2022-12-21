@@ -26,14 +26,14 @@ docker-compose up -d
 ```
 
 ### Copy Keyboard File
-"GPK_FWMAKER" directory is now available in the home directory.  
+"GPKFW" directory is now available in the home directory.  
     
 e.g.   
-windows: C:\Users\xxxx\GPK_FWMAKER   
-mac: /Users/xxxx/GPK_FWMAKER   
-ubuntu: /home/xxxx/GPK_FWMAKER    
+windows: C:\Users\xxxx\GPKFW   
+mac: /Users/xxxx/GPKFW   
+ubuntu: /home/xxxx/GPKFW    
 
-Copy the keyboard files to "GPK_FWMAKER" directory.   
+Copy the keyboard files to "GPKFW" directory.   
 Firmware is also created here.   
 ![dir](https://user-images.githubusercontent.com/5214078/207864849-c199464f-9b03-4028-b148-0688e9e5603e.jpg)
 
@@ -62,7 +62,7 @@ Port: 3123
 
 #### Build
 Build firmware.
-The built firmware is created in the GPK_FWMAKER directory.   
+The built firmware is created in the GPKFW directory.   
 kb is the keyboard name.  
 km is the keymap.  
 tag can be taken from the TagList api or check the qmk's tag page(https://github.com/qmk/qmk_firmware/tags). 
