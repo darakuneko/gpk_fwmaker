@@ -84,7 +84,7 @@ layout is the development_board/processor name of this link.
 https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema    
 layout is the directory name of this link.    
 https://github.com/qmk/qmk_firmware/tree/master/layouts/default    
-user is the user.
+user is the username.
 
 #### TagList
 Tag list of cloned repositories.    
