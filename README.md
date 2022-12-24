@@ -26,8 +26,8 @@ docker-compose up -d
 ```
 
 ### Copy Keyboard File
-"GPKFW" directory is now available in the home directory.  
-    
+After initialized, "GPKFW" directory will be created.
+
 e.g.   
 windows: C:\Users\xxxx\GPKFW   
 mac: /Users/xxxx/GPKFW   
