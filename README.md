@@ -80,7 +80,7 @@ km: default
 Keyboard files.
 The files is created in the GPKFW directory.   
 kb is the keyboard name.  
-layout is the development_board/processor name of this link.   
+mcu is the development_board/processor name of this link.   
 https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema    
 layout is the directory name of this link.    
 https://github.com/qmk/qmk_firmware/tree/master/layouts/default    
