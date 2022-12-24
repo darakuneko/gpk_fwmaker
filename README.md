@@ -77,7 +77,7 @@ kb: reviung/reviung41
 km: default 
 
 #### Generate
-Keyboard files.
+Keyboard files.    
 The files is created in the GPKFW directory.   
 kb is the keyboard name.  
 mcu is the development_board/processor name of this link.   
