@@ -52,11 +52,12 @@ curl -X POST -H "Content-Type: application/json" -d '{"kb": "reviung/reviung41",
 Recommend: It is easier to see when formatted using the jq command.   
 
 ### API
-|    |  url  |  method |                   response                    |  parameter  |
-| :---: | :---: | :---: |:---------------------------------------------:| :---: |
-|  Build  |  /build/qmk  |  post  | json<br>{ stderr: string,<br>stdout: string } | kb(required): string<br>km(required): string<br>tag(required): string |
-|  TagList  |  /tags/qmk  |  get  |                     array                     | |
-|  Update  |  /update/qmk  |  get  |                    string                     | |
+|          |        url         |  method |                   response                    |  parameter  |
+|:--------:|:------------------:| :---: |:---------------------------------------------:| :---: |
+|  Build   |     /build/qmk     |  post  | json<br>{ stderr: string,<br>stdout: string } | kb(required): string<br>km(required): string<br>tag(required): string |
+| Generate | /generate/qmk/file |  post  | json<br>{ stderr: string,<br>stdout: string } | kb(required): string<br>mcu(required): string<br>layout(required): string<br>user(required): string |
+| TagList  |     /tags/qmk      |  get  |                     array                     | |
+|  Update  |    /update/qmk     |  get  |                    string                     | |
 
 Port: 3123
 
@@ -74,6 +75,16 @@ make reviung/reviung41:default
 Parameter  
 kb: reviung/reviung41  
 km: default 
+
+#### Generate
+Keyboard files.
+The files is created in the GPKFW directory.   
+kb is the keyboard name.  
+layout is the development_board/processor name of this link.   
+https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema    
+layout is the directory name of this link.    
+https://github.com/qmk/qmk_firmware/tree/master/layouts/default    
+user is the user.
 
 #### TagList
 Tag list of cloned repositories.    
