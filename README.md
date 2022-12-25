@@ -8,23 +8,27 @@ link: https://www.docker.com
 
 Usage
 -------
-#### Download
+### Download
 
 https://github.com/darakuneko/gpk_fwmaker/archive/refs/heads/main.zip
 
-### Image Build
+Image Build
+-------
 ``` 
 cd gpk_fwmaker
 docker-compose build
 ```
 
-###  Startup
+Startup
+-------
+
 ``` 
 cd gpk_fwmaker
 docker-compose up -d
 ```
 
-### Copy Keyboard File
+Copy Keyboard File
+-------
 After initialized, "GPKFW" directory will be created.
 
 e.g.   
@@ -36,7 +40,8 @@ Copy the keyboard files to "GPKFW" directory.
 Firmware is also created here.   
 <img src="https://user-images.githubusercontent.com/5214078/207864849-c199464f-9b03-4028-b148-0688e9e5603e.jpg" width="50%" />
 
-### Build Firmware
+Build Firmware
+-------
 GPK FWMaker's API is used to build a firmware.    
    
 e.g.   
@@ -50,7 +55,9 @@ curl -X POST -H "Content-Type: application/json" -d '{"kb": "reviung/reviung41",
 
 Recommend: It is easier to see when formatted using the jq command.   
 
-### API
+API
+-------
+
 |                  |           url           | method |                   response                    |                                              parameter                                              |
 |:----------------:|:-----------------------:|:------:|:---------------------------------------------:|:---------------------------------------------------------------------------------------------------:|
 |      Build       |       /build/qmk        |  post  | json<br>{ stderr: string,<br>stdout: string } |                kb(required): string<br>km(required): string<br>tag(required): string                |
@@ -63,7 +70,7 @@ Recommend: It is easier to see when formatted using the jq command.
 
 Port: 3123
 
-#### Build
+### Build
 Build firmware.
 The built firmware is created in the GPKFW directory.   
 kb is the keyboard name.  
@@ -89,7 +96,7 @@ https://docs.qmk.fm
 Vial   
 https://get.vial.today/docs/porting-to-via.html
 
-#### GenerateFile
+### GenerateFile
 Keyboard files.    
 The files is created in the GPKFW directory.   
 kb is the keyboard name.  
@@ -99,13 +106,13 @@ layout is the directory name of this link.
 https://github.com/qmk/qmk_firmware/tree/master/layouts/default    
 user is the username.
 
-#### GenerateUniqID
+### GenerateUniqID
 Unique ID for use with Vial   
 
-#### TagList
+### TagList
 Tag list of cloned repositories.    
     
-#### UpdateRepository
+### UpdateRepository
 Clone again to the latest state.   
 
 If you get an error like this, please update the repository.    
