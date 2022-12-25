@@ -83,6 +83,12 @@ Parameter
 kb: reviung/reviung41  
 km: default 
 
+__For more information about the build__  
+QMK  
+https://docs.qmk.fm   
+Vial   
+https://get.vial.today/docs/porting-to-via.html
+
 #### GenerateFile
 Keyboard files.    
 The files is created in the GPKFW directory.   
