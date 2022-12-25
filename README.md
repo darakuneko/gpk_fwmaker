@@ -52,12 +52,15 @@ curl -X POST -H "Content-Type: application/json" -d '{"kb": "reviung/reviung41",
 Recommend: It is easier to see when formatted using the jq command.   
 
 ### API
-|                  |        url         |  method |                   response                    |  parameter  |
-|:----------------:|:------------------:| :---: |:---------------------------------------------:| :---: |
-|      Build       |     /build/qmk     |  post  | json<br>{ stderr: string,<br>stdout: string } | kb(required): string<br>km(required): string<br>tag(required): string |
-|   GenerateFile   | /generate/qmk/file |  post  | json<br>{ stderr: string,<br>stdout: string } | kb(required): string<br>mcu(required): string<br>layout(required): string<br>user(required): string |
-|     TagList      |     /tags/qmk      |  get  |                     array                     | |
-| UpdateRepository |    /update/repository/qmk     |  get  |                    string                     | |
+|                  |           url           | method |                   response                    |                                              parameter                                              |
+|:----------------:|:-----------------------:|:------:|:---------------------------------------------:|:---------------------------------------------------------------------------------------------------:|
+|      Build       |       /build/qmk        |  post  | json<br>{ stderr: string,<br>stdout: string } |                kb(required): string<br>km(required): string<br>tag(required): string                |
+|                  |       /build/vial       |  post  | json<br>{ stderr: string,<br>stdout: string } |              kb(required): string<br>km(required): string<br>commit(optional): string               |
+|   GenerateFile   |   /generate/qmk/file    |  post  | json<br>{ stderr: string,<br>stdout: string } | kb(required): string<br>mcu(required): string<br>layout(required): string<br>user(required): string |
+|  GenerateUniqID  |    /generate/vial/id    |  get   |                   string                      |                                                                                                     |
+|     TagList      |        /tags/qmk        |  get   |                     array                     |                                                                                                     |
+| UpdateRepository | /update/repository/qmk  |  get   |                    string                     |                                                                                                     |
+|                  | /update/repository/vial |  get   |                    string                     |                                                                                                     |
 
 Port: 3123
 
@@ -66,7 +69,12 @@ Build firmware.
 The built firmware is created in the GPKFW directory.   
 kb is the keyboard name.  
 km is the keymap.  
-tag can be taken from the TagList api or check the qmk's tag page(https://github.com/qmk/qmk_firmware/tags). 
+
+- QMK   
+  tag can be taken from the TagList api or check the qmk's tag page   
+  https://github.com/qmk/qmk_firmware/tags
+- Vail
+  If commit is specified, it will build on any commit of the vial branch.    
 
 e.g.    
 For command  
@@ -85,6 +93,9 @@ https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema
 layout is the directory name of this link.    
 https://github.com/qmk/qmk_firmware/tree/master/layouts/default    
 user is the username.
+
+#### GenerateUniqID
+Unique ID for use with Vial   
 
 #### TagList
 Tag list of cloned repositories.    
