@@ -1,6 +1,5 @@
 # GPK FWMaker
-Make QMK Firmware with API     
-May correspond to Vial....    
+Make QMK/Vial Firmware with API     
 
 Before use
 -------
