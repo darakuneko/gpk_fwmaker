@@ -73,7 +73,7 @@ km is the keymap.
 - QMK   
   tag can be taken from the TagList api or check the qmk's tag page   
   https://github.com/qmk/qmk_firmware/tags
-- Vail
+- Vail  
   If commit is specified, it will build on any commit of the vial branch.    
 
 e.g.    
