@@ -101,8 +101,12 @@ Unique ID for use with Vial
 Tag list of cloned repositories.    
     
 #### UpdateRepository
-Clone again to the latest state. 
-     
+Clone again to the latest state.   
+
+If you get an error like this, please update the repository.    
+``` 
+error: branch 'x.x.x' not found.
+``` 
 ------- 
 ☕️☕️☕️ Donation ☕️☕️☕️   
 [Amazon](https://www.amazon.co.jp/hz/wishlist/ls/66VQJTRHISQT) or [Ko-fi](https://ko-fi.com/darakuneko)  
