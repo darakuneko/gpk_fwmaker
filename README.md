@@ -35,7 +35,7 @@ ubuntu: /home/xxxx/GPKFW
 
 Copy the keyboard files to "GPKFW" directory.   
 Firmware is also created here.   
-![dir](https://user-images.githubusercontent.com/5214078/207864849-c199464f-9b03-4028-b148-0688e9e5603e.jpg)
+<img src="https://user-images.githubusercontent.com/5214078/207864849-c199464f-9b03-4028-b148-0688e9e5603e.jpg" width="50%" />
 
 ### Build Firmware
 GPK FWMaker's API is used to build a firmware.    
@@ -52,12 +52,12 @@ curl -X POST -H "Content-Type: application/json" -d '{"kb": "reviung/reviung41",
 Recommend: It is easier to see when formatted using the jq command.   
 
 ### API
-|          |        url         |  method |                   response                    |  parameter  |
-|:--------:|:------------------:| :---: |:---------------------------------------------:| :---: |
-|  Build   |     /build/qmk     |  post  | json<br>{ stderr: string,<br>stdout: string } | kb(required): string<br>km(required): string<br>tag(required): string |
-| Generate | /generate/qmk/file |  post  | json<br>{ stderr: string,<br>stdout: string } | kb(required): string<br>mcu(required): string<br>layout(required): string<br>user(required): string |
-| TagList  |     /tags/qmk      |  get  |                     array                     | |
-|  Update  |    /update/qmk     |  get  |                    string                     | |
+|                  |        url         |  method |                   response                    |  parameter  |
+|:----------------:|:------------------:| :---: |:---------------------------------------------:| :---: |
+|      Build       |     /build/qmk     |  post  | json<br>{ stderr: string,<br>stdout: string } | kb(required): string<br>km(required): string<br>tag(required): string |
+|   GenerateFile   | /generate/qmk/file |  post  | json<br>{ stderr: string,<br>stdout: string } | kb(required): string<br>mcu(required): string<br>layout(required): string<br>user(required): string |
+|     TagList      |     /tags/qmk      |  get  |                     array                     | |
+| UpdateRepository |    /update/repository/qmk     |  get  |                    string                     | |
 
 Port: 3123
 
@@ -76,7 +76,7 @@ Parameter
 kb: reviung/reviung41  
 km: default 
 
-#### Generate
+#### GenerateFile
 Keyboard files.    
 The files is created in the GPKFW directory.   
 kb is the keyboard name.  
@@ -89,7 +89,7 @@ user is the username.
 #### TagList
 Tag list of cloned repositories.    
     
-#### Update
+#### UpdateRepository
 Clone again to the latest state. 
      
 ------- 

@@ -15,7 +15,7 @@ app.get('/tags/qmk', async (req, res) => {
     res.send(tags)
 })
 
-app.get('/update/qmk', async (req, res) => {
+app.get('/update/repository/qmk', async (req, res) => {
     await cmd.updateQmk()
     res.send('success')
 })

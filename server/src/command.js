@@ -49,7 +49,7 @@ const command = {
     },
     updateQmk: async () => {
         await rmQmk()
-        await exec("cd /root && git clone https://github.com/qmk/qmk_firmware.git")
+        await exec("cd /root && qmk setup -y")
     },
     generateQmkFile: async (kb, mcu, layout, user) => {
         await rmQmkKeyboards()
