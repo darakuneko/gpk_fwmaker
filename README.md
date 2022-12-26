@@ -53,7 +53,7 @@ other
 curl -X POST -H "Content-Type: application/json" -d '{"kb": "reviung/reviung41", "km": "default", "tag": "0.19.3"}' 127.0.0.1:3123/build/qmk | jq -r '.stderr, .stdout'
 ```
 
-Recommend: It is easier to see when formatted using the jq command.   
+Recommend: In the case of json, It is easier to see when formatted using the jq command.   
 
 API
 -------
