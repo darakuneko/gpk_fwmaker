@@ -47,26 +47,24 @@ GPK FWMaker's API is used to build a firmware.
 e.g.   
 ``` 
 windows
-curl -X POST -H "Content-Type: application/json" -d '{\"kb\": \"reviung/reviung41\", \"km\": \"default", \"tag\": \"0.19.3\"}' 127.0.0.1:3123/build/qmk  | jq -r '.stderr, .stdout'
+curl -X POST -H "Content-Type: application/json" -d '{\"kb\": \"reviung/reviung41\", \"km\": \"default", \"tag\": \"0.19.3\"}' 127.0.0.1:3123/build/qmk
 
 other
-curl -X POST -H "Content-Type: application/json" -d '{"kb": "reviung/reviung41", "km": "default", "tag": "0.19.3"}' 127.0.0.1:3123/build/qmk | jq -r '.stderr, .stdout'
+curl -X POST -H "Content-Type: application/json" -d '{"kb": "reviung/reviung41", "km": "default", "tag": "0.19.3"}' 127.0.0.1:3123/build/qmk
 ```
-
-Recommend: In the case of json, It is easier to see when formatted using the jq command.   
 
 API
 -------
 
-|                  |           url           | method |                   response                    |                                              parameter                                              |
-|:----------------:|:-----------------------:|:------:|:---------------------------------------------:|:---------------------------------------------------------------------------------------------------:|
-|      Build       |       /build/qmk        |  post  | json<br>{ stderr: string,<br>stdout: string } |                kb(required): string<br>km(required): string<br>tag(required): string                |
-|                  |       /build/vial       |  post  | json<br>{ stderr: string,<br>stdout: string } |              kb(required): string<br>km(required): string<br>commit(optional): string               |
-|   GenerateFile   |   /generate/qmk/file    |  post  | json<br>{ stderr: string,<br>stdout: string } | kb(required): string<br>mcu(required): string<br>layout(required): string<br>user(required): string |
-|  GenerateUniqID  |    /generate/vial/id    |  get   |                   string                      |                                                                                                     |
-|     TagList      |        /tags/qmk        |  get   |                     array                     |                                                                                                     |
-| UpdateRepository | /update/repository/qmk  |  get   |                    string                     |                                                                                                     |
-|                  | /update/repository/vial |  get   |                    string                     |                                                                                                     |
+|                  |           url           | method |    response    |                                              parameter                                              |
+|:----------------:|:-----------------------:|:------:|:--------------:|:---------------------------------------------------------------------------------------------------:|
+|      Build       |       /build/qmk        |  post  | string(stream) |                kb(required): string<br>km(required): string<br>tag(required): string                |
+|                  |       /build/vial       |  post  | string(stream) |              kb(required): string<br>km(required): string<br>commit(optional): string               |
+|   GenerateFile   |   /generate/qmk/file    |  post  |     string     | kb(required): string<br>mcu(required): string<br>layout(required): string<br>user(required): string |
+|  GenerateUniqID  |    /generate/vial/id    |  get   |     string     |                                                                                                     |
+|     TagList      |        /tags/qmk        |  get   |     array      |                                                                                                     |
+| UpdateRepository | /update/repository/qmk  |  get   | string(stream) |                                                                                                     |
+|                  | /update/repository/vial |  get   | string(stream) |                                                                                                     |
 
 Port: 3123
 
