@@ -63,6 +63,7 @@ API
 |   GenerateFile   |   /generate/qmk/file    |  post  |     string     | kb(required): string<br>mcu(required): string<br>layout(required): string<br>user(required): string |
 |  GenerateUniqID  |    /generate/vial/id    |  get   |     string     |                                                                                                     |
 |     TagList      |        /tags/qmk        |  get   |     array      |                                                                                                     |
+|     Convert      |    /convert/via/json    |  post  | string(stream) |                        info(required): json file<br>kle(required): json file                        |
 | UpdateRepository | /update/repository/qmk  |  get   | string(stream) |                                                                                                     |
 |                  | /update/repository/vial |  get   | string(stream) |                                                                                                     |
 
@@ -109,7 +110,27 @@ Unique ID for use with Vial
 
 ### TagList
 Tag list of cloned repositories.    
-    
+
+
+### Convert 
+-------
+QMK info.json and KLE json are used to create via.json.
+
+info.json - required fields
+```
+{
+  "keyboard_name": "Your Keyboard's Name",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0001",
+  },
+  "matrix_size": {
+    "cols": 1,
+    "rows": 1
+  }
+}
+ ```
+
 ### UpdateRepository
 Clone again to the latest state.   
 
