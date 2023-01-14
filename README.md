@@ -63,7 +63,8 @@ API
 |   GenerateFile   |   /generate/qmk/file    |  post  |     string     | kb(required): string<br>mcu(required): string<br>layout(required): string<br>user(required): string |
 |  GenerateUniqID  |    /generate/vial/id    |  get   |     string     |                                                                                                     |
 |     TagList      |        /tags/qmk        |  get   |     array      |                                                                                                     |
-|     Convert      |    /convert/via/json    |  post  | string(stream) |                        info(required): json file<br>kle(required): json file                        |
+|     Convert<br>via.json      |    /convert/via/json    |  post  | string(stream) |                        info(required): json file<br>kle(required): json file     
+|     Convert<br>KLE json to QMK/Vial       |    /convert/kle/qmk    |  post  | string |                        kle(required): json file<br>kb(required): string <br>mcu(required): string<br>user(required): string<br> vid(required): string<br>pid(required): string<br>option(required): int <br>rows(Required if option is 0 or 1): int<br>cols(Required if option is 0 or 1): int<br> |
 | UpdateRepository | /update/repository/qmk  |  get   | string(stream) |                                                                                                     |
 |                  | /update/repository/vial |  get   | string(stream) |                                                                                                     |
 
@@ -112,7 +113,7 @@ Unique ID for use with Vial
 Tag list of cloned repositories.    
 
 
-### Convert 
+### Convert (via.json)
 -------
 QMK info.json and KLE json are used to create via.json.
 
@@ -133,6 +134,157 @@ info.json - required fields
  
 KLE json edited like VIA  
 https://www.caniusevia.com/docs/layouts 
+
+### Convert (KLE json to QMK/Vial)
+-------
+It is based on Firmware 'scripts'.   
+zykrah's Nice project👍      
+https://github.com/zykrah/firmware-scripts       
+
+#### Params
+kle is KLE json.    
+kb is the keyboard name.      
+mcu is the development_board/processor name of this link.      
+https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema      
+user is the username.      
+vid is Vendor ID.      
+pid is Product ID.      
+option:
+
+|          value        |                      |
+|:----------------:|:-----------------------:| 
+|       0           |           build QMK Firmware           | 
+|       1           |           build Vail Firmware        | 
+|       2           |           make only via.json | 
+
+rows is matrix pins.      
+cols is matrix pins.      
+e.g.      
+GP0,GP1,GP2,GP3     
+
+#### KLE Guidelines
+![switch](https://user-images.githubusercontent.com/5214078/212447224-56b04aa8-387c-4bf9-a8d3-bf383770c18c.png)
+
+- 0: "label" in the info.json and layer 0 
+- 1: layer 1
+- 2: (VIAL only) If there is a 'u' here, the key is included as a key for the unlock combo （Same as Firmware 'scripts）
+- 3: Multilayout index （Same as Firmware 'scripts）
+- 4: (VIAL only) If there is an 'e' here, the key is an encoder （Same as Firmware 'scripts）
+- 5: Multilayout value （Same as Firmware 'scripts）
+- 6: Secondary Multilayout name （Same as Firmware 'scripts）
+- 7: Primary Multilayout name/label （Same as Firmware 'scripts）
+- 8: layer 2
+- 9: Row
+- 11: Col
+
+0 can use label.　　　　   
+If the label of keycodes matches the 0 value of KLE Json, it is converted to "aliases" or "key" at layer 0. 
+In info.json, it is used as is.    
+https://keyboards.qmk.fm/v1/constants/keycodes_0.0.1.json     
+In 0, 1, and 8, a blank space is KC_NO.    
+
+Please refer to these KLE and make it.    
+https://t.ly/bNH0    
+https://t.ly/Y3BEW      
+https://t.ly/xiJG8     
+
+Main labels   
+```
+A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+K
+L
+M
+N
+O
+P
+Q
+R
+S
+T
+U
+V
+W
+X
+Y
+Z
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0
+Enter
+Esc
+Backspace
+Tab
+Spacebar
+-
+=
+]
+[
+\\
+#
+;
+'
+`
+,
+.
+/
+Caps Lock
+F1
+F2
+F3
+F4
+F5
+F6
+F7
+F8
+F9
+F10
+F11
+F12
+Print Screen
+Scroll Lock
+Pause
+Insert
+Home
+Page Up
+Delete
+End
+Page Down
+Right
+Left
+Down
+Up
+Num Lock
+Menu
+Mute
+Volume Up
+Volume Down
+Caps Lock
+Num Lock
+Left Control
+Left Shift
+Left Alt
+Left GUI
+Right Control
+Right Shift
+Right Alt
+Right GUI
+```
 
 ### UpdateRepository
 Clone again to the latest state.   
