@@ -124,7 +124,7 @@ const infoBuffer = fs.readFileSync(infoFilePath)
 data.append('info', infoBuffer, {
         filename: infoFileName,
         contentType: 'application/json',
-        knownLength: kleBuffer.length
+        knownLength: infoBuffer.length
 })
 const kleBuffer = fs.readFileSync(kleFilePath)
 data.append('kle', kleBuffer, {
