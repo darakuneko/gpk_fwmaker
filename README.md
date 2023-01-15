@@ -64,7 +64,7 @@ API
 |  GenerateUniqID  |    /generate/vial/id    |  get   |     string     |                                                                                                     |
 |     TagList      |        /tags/qmk        |  get   |     array      |                                                                                                     |
 |     Convert<br>via.json      |    /convert/via/json    |  post  | string(stream) |                        info(required): json file<br>kle(required): json file     
-|     Convert<br>KLE json to QMK/Vial       |    /convert/kle/qmk    |  post  | string |                        kle(required): json file<br>kb(required): string <br>mcu(required): string<br>user(required): string<br> vid(required): string<br>pid(required): string<br>option(required): int <br>rows(Required if option is 0 or 1): int<br>cols(Required if option is 0 or 1): int<br> |
+|     Convert<br>KLE json to QMK/Vial       |    /convert/kle/qmk    |  post  | string |                        kle(required): json file<br>params.kb(required): string <br>params.mcu(required): string<br>params.user(required): string<br>params.vid(required): string<br>params.pid(required): string<br>params.option(required): int <br>params.rows(Required if option is 0 or 1): int<br>params.cols(Required if option is 0 or 1): params.int<br> |
 | UpdateRepository | /update/repository/qmk  |  get   | string(stream) |                                                                                                     |
 |                  | /update/repository/vial |  get   | string(stream) |                                                                                                     |
 
@@ -117,6 +117,24 @@ Tag list of cloned repositories.
 -------
 QMK info.json and KLE json are used to create via.json.
 
+e.g.    
+```
+const data = new FormData()
+const infoBuffer = fs.readFileSync(infoFilePath)
+data.append('info', infoBuffer, {
+        filename: infoFileName,
+        contentType: 'application/json',
+        knownLength: kleBuffer.length
+})
+const kleBuffer = fs.readFileSync(kleFilePath)
+data.append('kle', kleBuffer, {
+        filename: kleFileName,
+        contentType: 'application/json',
+        knownLength: kleBuffer.length
+})
+axios.post(url("/convert/via/json"), data, {headers: {"Content-Type": "multipart/form-data"}})
+```
+
 info.json - required fields
 ```
 {
@@ -140,6 +158,19 @@ https://www.caniusevia.com/docs/layouts
 It is based on Firmware 'scripts'.   
 zykrah's Nice project👍      
 https://github.com/zykrah/firmware-scripts       
+
+e.g.    
+```
+const data = new FormData()
+const buffer = fs.readFileSync(filepath)
+data.append('kle', buffer, {
+        filename: filename,
+        contentType: 'application/json',
+        knownLength: buffer.length
+})
+data.append('params', JSON.stringify(params))
+axios.post(url("/convert/kle/qmk"), data, {headers: {"Content-Type": "multipart/form-data"}})
+```
 
 #### Params
 kle is KLE json.    
