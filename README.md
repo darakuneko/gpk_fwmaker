@@ -16,7 +16,7 @@ Image Build
 -------
 ``` 
 cd gpk_fwmaker
-docker-compose build
+docker compose build
 ```
 
 Startup
@@ -24,7 +24,7 @@ Startup
 
 ``` 
 cd gpk_fwmaker
-docker-compose up -d
+docker compose up -d
 ```
 
 Copy Keyboard File
