@@ -1,6 +1,12 @@
 # GPK FWMaker
 Make QMK/Vial Firmware with API     
 
+GUI version
+-------
+GPK FWBuilder    
+https://github.com/darakuneko/gpk_fwbuilder    
+
+
 Before use
 -------
 Install Docker Desktop    
