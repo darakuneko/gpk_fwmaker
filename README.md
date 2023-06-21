@@ -217,7 +217,7 @@ GP0,GP1,GP2,GP3
 0 can use label.　　　　   
 If the label of keycodes matches the 0 value of KLE Json, it is converted to "aliases" or "key" at layer 0. 
 In info.json, it is used as is.    
-https://keyboards.qmk.fm/v1/constants/keycodes_0.0.1.json     
+https://keyboards.qmk.fm/v1/constants/keycodes_0.0.3.json     
 In 0, 1, and 8, a blank space is KC_NO.    
 
 Please refer to these KLE and make it.    
