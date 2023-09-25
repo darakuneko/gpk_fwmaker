@@ -71,8 +71,10 @@ API
 |     TagList      |        /tags/qmk        |  get   |     array      |                                                                                                     |
 |     Convert<br>via.json      |    /convert/via/json    |  post  | string(stream) |                        info(required): json file<br>kle(required): json file     
 |     Convert<br>KLE json to QMK/Vial       |    /convert/kle/qmk    |  post  | string |                        kle(required): json file<br>params.kb(required): string <br>params.mcu(required): string<br>params.user(required): string<br>params.vid(required): string<br>params.pid(required): string<br>params.option(required): int <br>params.rows(Required if option is 0 or 1): int<br>params.cols(Required if option is 0 or 1): params.int<br> |
+| UpdateRepository | /update/repository/qmk  |  get   | string(stream) |                                                                                                     |                                                                                                  |
 | UpdateRepository | /update/repository/qmk  |  get   | string(stream) |                                                                                                     |
-|                  | /update/repository/vial |  get   | string(stream) |                                                                                                     |
+|                  | /update/repository/custom |  post   | string(stream) | id(required): string<br>url(required): string |
+| DeleteRepositoryCustom | /delete/repository/custom |  post   | string(stream) | id(required): string |
 
 Port: 3123
 
