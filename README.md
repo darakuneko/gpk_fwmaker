@@ -64,8 +64,11 @@ API
 
 |                  |           url           | method |    response    |                                              parameter                                              |
 |:----------------:|:-----------------------:|:------:|:--------------:|:---------------------------------------------------------------------------------------------------:|
-|      Build       |       /build/qmk        |  post  | string(stream) |                kb(required): string<br>km(required): string<br>tag(required): string                |
-|                  |       /build/vial       |  post  | string(stream) |              kb(required): string<br>km(required): string<br>commit(optional): string               |
+|      Build       |       /build/qmk        |  post  | string(stream) |                kb(required): string<br>km(required): string<br>tag(required): string<br>useRepo(optional):boolean             |
+|                  |       /build/vial       |  post  | string(stream) |              kb(required): string<br>km(required): string<br>commit(optional): string<br>useRepo(optional):boolean               |
+|                  |       /build/custom     |  post  | string(stream) |              fw(required): string<br>kb(required): string<br>km(required): string<br>commit(optional): string<br>useRepo(optional):boolean               |
+|   Repository Keyboards List   |   /list/keyboards      |  post  |     arrary     | fw(required): string |
+|   Copy Repository Keyboard File   |   /copy/keyboard     |  post  |     string(stream)     | fw(required): string |
 |   GenerateFile   |   /generate/qmk/file    |  post  |     string     | kb(required): string<br>mcu(required): string<br>layout(required): string<br>user(required): string |
 |  GenerateUniqID  |    /generate/vial/id    |  get   |     string     |                                                                                                     |
 |     TagList      |        /tags/qmk        |  get   |     array      |                                                                                                     |
