@@ -134,7 +134,7 @@ const vial2c = (json) => {
     return translated.replace(/LT([0-9])\(/g, "LT($1,");
   };
 
-  const layer = json.layout
+  const keymap = json.layout
     .map((layout, layoutIndex) => {
       if (!Array.isArray(layout)) return null;
 
@@ -152,7 +152,7 @@ const vial2c = (json) => {
     .filter(Boolean)
     .join(",\n");
 
-  return template(layer)
+  return template(keymap)
 }
 
 module.exports.vial2c = vial2c
