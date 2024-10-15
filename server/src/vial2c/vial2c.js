@@ -129,7 +129,7 @@ const vial2c = (json) => {
     return ""; 
   }
 
-  const translateKeycode = (keycode) =>  keycode.replace(/LT([0-9])\((KC_[A-Z]+)\)/g,  (_, p1, p2) => `LT(${p1}, ${KC_ALIASES[p2] || p2})`)
+  const translateKeycode = (keycode) =>  keycode.replace(/LT([0-9]+)\((KC_[A-Z]+)\)/g,  (_, p1, p2) => `LT(${p1}, ${KC_ALIASES[p2] || p2})`)
 
   const keymap = json.layout
     .map((layout, layoutIndex) => {
