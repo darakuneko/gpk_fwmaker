@@ -9,8 +9,9 @@ https://github.com/darakuneko/gpk_fwbuilder
 
 Before use
 -------
-Install Docker Desktop    
-link: https://www.docker.com
+Install Docker Desktop     
+link: https://www.docker.com  
+Note: Anything compatible is fine, as long as docker compose can be used.  
 
 Usage
 -------
