@@ -234,7 +234,6 @@ app.post('/generate/qmk/file', async (req: Request<unknown, unknown, GenerateQMK
         const user = req.body.user
 
         const result = await cmd.generateQmkFile(kbL, kbDir, mcu, layout, user)
-        console.log(result)
         
         // Try to read existing keyboard.json first (latest QMK), then fallback to info.json
         let infoQmk
