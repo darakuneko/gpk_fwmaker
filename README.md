@@ -2,12 +2,12 @@
 
 **QMK/Vial Firmware Build API** - Containerized keyboard firmware build service
 
-[\![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[\![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
-[\![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)](https://nodejs.org/)
-[\![QMK](https://img.shields.io/badge/QMK-1e88e5?style=flat&logo=qmk&logoColor=white)](https://qmk.fm/)
-[\![Vial](https://img.shields.io/badge/Vial-purple?style=flat)](https://get.vial.today/)
-[\![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/darakuneko/gpk_fwmaker)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![QMK](https://img.shields.io/badge/QMK-1e88e5?style=flat&logo=qmk&logoColor=white)](https://qmk.fm/)
+[![Vial](https://img.shields.io/badge/Vial-purple?style=flat)](https://get.vial.today/)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/darakuneko/gpk_fwmaker)
 
 🌐 English | [🇯🇵 日本語](README.ja.md)
 
@@ -348,10 +348,6 @@ lsof -i :3123
 
 ## Related Projects
 
-### Detailed Guide
-**DeepWiki - GPK FWMaker**  
-https://deepwiki.com/darakuneko/gpk_fwmaker
-
 ### GUI Version
 **GPK FWBuilder**  
 https://github.com/darakuneko/gpk_fwbuilder
@@ -366,22 +362,11 @@ https://github.com/zykrah/firmware-scripts
 
 ---
 
-## Support & Contributing
-
-### Developer Support
+## Developer Support
 
 **Buy me a coffee**  
 [Amazon Wishlist](https://www.amazon.co.jp/hz/wishlist/ls/66VQJTRHISQT) | [Ko-fi](https://ko-fi.com/darakuneko)
 
-### How to Contribute
-
-1. Fork this repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Create Pull Request
-
----
 
 ## License
 

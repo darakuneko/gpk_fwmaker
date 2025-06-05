@@ -348,10 +348,6 @@ lsof -i :3123
 
 ## 関連プロジェクト
 
-### 詳細ガイド
-**DeepWiki - GPK FWMaker**  
-https://deepwiki.com/darakuneko/gpk_fwmaker
-
 ### GUI バージョン
 **GPK FWBuilder**  
 https://github.com/darakuneko/gpk_fwbuilder
