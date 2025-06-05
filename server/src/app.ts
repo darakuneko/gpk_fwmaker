@@ -234,11 +234,50 @@ app.post('/generate/qmk/file', async (req: Request<unknown, unknown, GenerateQMK
         const user = req.body.user
 
         const result = await cmd.generateQmkFile(kbL, kbDir, mcu, layout, user)
-        const infoQmk = bufferToJson(await cmd.readQmkFile(kbDir, 'info.json'))
+        console.log(result)
+        
+        // Try to read existing keyboard.json first (latest QMK), then fallback to info.json
+        let infoQmk
+        let configFile = 'keyboard.json'
+        try {
+            infoQmk = bufferToJson(await cmd.readQmkFile(kbL, 'keyboard.json'))
+        } catch (e) {
+            try {
+                configFile = 'info.json'
+                infoQmk = bufferToJson(await cmd.readQmkFile(kbL, 'info.json'))
+            } catch (e) {
+                // If neither file exists, create a basic structure
+                infoQmk = {
+                    keyboard_name: kb,
+                    manufacturer: user,
+                    maintainer: user,
+                    processor: mcu,
+                    bootloader: "atmel-dfu",
+                    usb: {
+                        vid: "0xFEED",
+                        pid: "0x0000"
+                    },
+                    features: {
+                        bootmagic: true,
+                        command: false,
+                        console: false,
+                        extrakey: true,
+                        mousekey: true,
+                        nkro: true
+                    },
+                    matrix_pins: {
+                        cols: [],
+                        rows: []
+                    },
+                    layouts: {}
+                }
+            }
+        }
+        
         infoQmk.keyboard_name = kb
         infoQmk.manufacturer = user
         infoQmk.maintainer = user
-        await cmd.writeQmkFile(kbDir, 'info.json', jsonToStr(infoQmk))
+        await cmd.writeQmkFile(kbL, configFile, jsonToStr(infoQmk))
         await cmd.mvQmkConfigsToVolume(kbDir)
         res.send(result)
     } catch (e) {
