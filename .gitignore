@@ -1,2 +1,10 @@
-/.idea
+/.env
 node_modules
+/dist
+yarn.lock
+.github
+package-lock.json
+.claude/
+docs/
+CLAUDE.md
+build.log

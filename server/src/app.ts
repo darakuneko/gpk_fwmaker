@@ -1,24 +1,46 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const fs = require('fs')
-const path = require('path')
-const {cmd, streamResponse, streamError} = require('./command')
-const {vial2c} = require('./vial2c/vial2c')
-const util = require('util')
-const childProcess = require('child_process')
+import childProcess from 'child_process'
+import fs from 'fs'
+import path from 'path'
+import util from 'util'
+
+import bodyParser from 'body-parser'
+import express, { Request, Response } from 'express'
+import multer from 'multer'
+
+import {cmd, streamResponse, streamError} from './command'
+import {vial2c} from './vial2c/vial2c'
+import type { 
+    QMKBuildRequest, 
+    VialBuildRequest, 
+    CustomBuildRequest,
+    UpdateRepositoryRequest,
+    DeleteRepositoryRequest,
+    CheckoutRequest,
+    ListKeyboardsRequest,
+    CopyKeyboardRequest,
+    GenerateQMKFileRequest,
+    ConvertKleQmkParams,
+    KeyboardInfo
+} from './types'
+
 const exec = util.promisify(childProcess.exec)
 
 const app = express()
-const multer = require("multer")
 
-const server = app.listen(3000, async () => console.log("Node.js is listening to PORT:" + server.address().port))
+const server = app.listen(3000, async (): Promise<void> => {
+    const addr = server.address()
+    const port = typeof addr === 'string' ? addr : addr?.port
+    // eslint-disable-next-line no-console
+    console.log("Node.js is listening to PORT:" + port)
+})
 
-const bufferToJson = (buf) => JSON.parse(buf.toString())
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const bufferToJson = (buf: any): any => JSON.parse(buf.toString())
 
-const jsonToStr = (obj) => JSON.stringify(obj, null, 2)
+const jsonToStr = (obj: unknown): string => JSON.stringify(obj, null, 2)
 
-const getFWDir = async (fw) => {
-    const getDir = async (fw) => {
+const getFWDir = async (fw: string): Promise<string> => {
+    const getDir = async (fw: string): Promise<string> => {
         if (fw === "qmk") return cmd.dirQMK
         if (fw === "vial") return cmd.dirVial
         return await cmd.dirCustom(fw)
@@ -29,19 +51,21 @@ const getFWDir = async (fw) => {
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
-app.get('/', async (req, res) => res.send('GPK FWMaker!'))
+app.get('/', async (req: Request, res: Response): Promise<void> => {
+    res.send('GPK FWMaker!')
+})
 
-app.get('/tags/qmk', async (req, res) => {
+app.get('/tags/qmk', async (req: Request, res: Response): Promise<void> => {
     const tags = await cmd.tags()
     res.send(tags)
 })
 
-app.get('/update/repository/qmk', async (req, res) => await cmd.updateRepositoryQmk(res))
+app.get('/update/repository/qmk', async (req: Request, res: Response): Promise<void> => await cmd.updateRepositoryQmk(res))
 
-app.get('/update/repository/vial', async (req, res) => await cmd.updateRepositoryVial(res))
+app.get('/update/repository/vial', async (req: Request, res: Response): Promise<void> => await cmd.updateRepositoryVial(res))
 
-app.post('/update/repository/custom', async (req, res) => {
-    const fn = async () => {
+app.post('/update/repository/custom', async (req: Request<unknown, unknown, UpdateRepositoryRequest>, res: Response): Promise<void> => {
+    const fn = async (): Promise<void> => {
         try {
             const id = req.body.id
             const url = req.body.url
@@ -53,8 +77,8 @@ app.post('/update/repository/custom', async (req, res) => {
     await streamResponse(res, fn)
 })
 
-app.post('/delete/repository/custom', async (req, res) => {
-    const fn = async () => {
+app.post('/delete/repository/custom', async (req: Request<unknown, unknown, DeleteRepositoryRequest>, res: Response): Promise<void> => {
+    const fn = async (): Promise<void> => {
         try {
             const id = req.body.id
             await cmd.deleteRepositoryCustom(res, id)
@@ -65,12 +89,12 @@ app.post('/delete/repository/custom', async (req, res) => {
     await streamResponse(res, fn)
 })
 
-app.get('/update/repository/qmk', async (req, res) => await cmd.updateRepositoryQmk(res))
+app.get('/update/repository/qmk', async (req: Request, res: Response): Promise<void> => await cmd.updateRepositoryQmk(res))
 
-app.get('/update/repository/vial', async (req, res) => await cmd.updateRepositoryVial(res))
+app.get('/update/repository/vial', async (req: Request, res: Response): Promise<void> => await cmd.updateRepositoryVial(res))
 
-app.post('/build/qmk', async (req, res) => {
-    const fn = async () => {
+app.post('/build/qmk', async (req: Request<unknown, unknown, QMKBuildRequest>, res: Response): Promise<void> => {
+    const fn = async (): Promise<void> => {
         try {
             const kb = req.body.kb
             const kbDir = kb.replace(/\/.*/g, "")
@@ -88,8 +112,8 @@ app.post('/build/qmk', async (req, res) => {
     await streamResponse(res, fn)
 })
 
-app.post('/build/vial', async (req, res) => {
-    const fn = async () => {
+app.post('/build/vial', async (req: Request<unknown, unknown, VialBuildRequest>, res: Response): Promise<void> => {
+    const fn = async (): Promise<void> => {
         try {
             const repo = 'vial'
             const kb = req.body.kb
@@ -108,8 +132,8 @@ app.post('/build/vial', async (req, res) => {
     await streamResponse(res, fn)
 })
 
-app.post('/build/custom', async (req, res) => {
-    const fn = async () => {
+app.post('/build/custom', async (req: Request<unknown, unknown, CustomBuildRequest>, res: Response): Promise<void> => {
+    const fn = async (): Promise<void> => {
         try {
             const fw = req.body.fw
             const kb = req.body.kb
@@ -129,8 +153,8 @@ app.post('/build/custom', async (req, res) => {
 })
 
 
-app.post('/checkout', async (req, res) => {
-    const fn = async () => {
+app.post('/checkout', async (req: Request<unknown, unknown, CheckoutRequest>, res: Response): Promise<void> => {
+    const fn = async (): Promise<void> => {
         try {
             const fw = req.body.fw
             if (fw === "qmk") {
@@ -153,12 +177,12 @@ app.post('/checkout', async (req, res) => {
     await streamResponse(res, fn)
 })
 
-app.post('/list/keyboards', async (req, res) => {
-    const d = []
-    const searchFiles = (dirPath) => {
+app.post('/list/keyboards', async (req: Request<unknown, unknown, ListKeyboardsRequest>, res: Response): Promise<void> => {
+    const d: string[] = []
+    const searchFiles = (dirPath: string): void => {
         const allDirs = fs.readdirSync(dirPath, {withFileTypes: true})
         const f = []
-        allDirs.map(v => {
+        allDirs.map((v): void => {
             if (v.isDirectory()) {
                 const fp = path.join(dirPath, v.name)
                 f.push(searchFiles(fp))
@@ -170,22 +194,24 @@ app.post('/list/keyboards', async (req, res) => {
     try {
         const fwDir = await getFWDir(req.body.fw)
         searchFiles(fwDir)
-        const keymapsDirs = d.flat().map(v => v.replace(fwDir, '').split("/keymaps/"))
-        const kb = Array.from(new Set(keymapsDirs.map(v => v[0])))
-        const obj = kb.map(k => {
+        const keymapsDirs = d.flat().map((v): string[] => v.replace(fwDir, '').split("/keymaps/"))
+        const kb = Array.from(new Set(keymapsDirs.map((v): string => v[0])))
+        const obj: KeyboardInfo[] = kb.map((k): KeyboardInfo => {
             return {
                 kb: k.replace(/\\/g, '/').replace(/^\//, '').replace(/.*\/keyboards\//, ''),
-                km: keymapsDirs.filter(v => v[0] === k).map(v => v[1])
+                km: keymapsDirs.filter((v): boolean => v[0] === k).map((v): string => v[1])
             }
         })
         res.send(obj)
-        res.on('close', () => res.end('finish'))
+        res.on('close', (): void => {
+            res.end('finish')
+        })
     } catch (e) {
         res.send(e)
     }
 })
 
-app.post('/copy/keyboard', async (req, res) => {
+app.post('/copy/keyboard', async (req: Request<unknown, unknown, CopyKeyboardRequest>, res: Response): Promise<void> => {
     try {
         const fwDir = await getFWDir(req.body.fw)
         const kb = req.body.kb
@@ -198,7 +224,7 @@ app.post('/copy/keyboard', async (req, res) => {
     }
 })
 
-app.post('/generate/qmk/file', async (req, res) => {
+app.post('/generate/qmk/file', async (req: Request<unknown, unknown, GenerateQMKFileRequest>, res: Response): Promise<void> => {
     try {
         const kb = req.body.kb
         const kbL = kb.toLowerCase().replace(/-| /g, "_")
@@ -220,7 +246,7 @@ app.post('/generate/qmk/file', async (req, res) => {
     }
 })
 
-app.get('/generate/vial/id', async (req, res) => {
+app.get('/generate/vial/id', async (req: Request, res: Response): Promise<void> => {
     try {
         const result = await cmd.generateVialId()
         res.send(result)
@@ -229,11 +255,14 @@ app.get('/generate/vial/id', async (req, res) => {
     }
 })
 
-app.post('/convert/via/json', multer().fields([{name: 'info'}, {name: 'kle'}]), async (req, res) => {
+app.post('/convert/via/json', multer().fields([{name: 'info'}, {name: 'kle'}]), async (req: Request, res: Response): Promise<void> => {
     try {
-        const info = bufferToJson(req.files['info'][0].buffer)
-        const kle = bufferToJson(req.files['kle'][0].buffer)
-        const km = kle.filter(v => Array.isArray(v))
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const info = bufferToJson((req as any).files['info'][0].buffer)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const kle = bufferToJson((req as any).files['kle'][0].buffer)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const km = kle.filter((v: any): boolean => Array.isArray(v))
 
         if (!info.keyboard_name) throw new Error("No Property: keyboard_name")
         if (!info.usb.vid) throw new Error("No Property: usb.vid")
@@ -262,9 +291,9 @@ app.post('/convert/via/json', multer().fields([{name: 'info'}, {name: 'kle'}]), 
 })
 
 
-app.post('/convert/kle/qmk', multer().single('kle'), async (req, res) => {
+app.post('/convert/kle/qmk', multer().single('kle'), async (req: Request, res: Response): Promise<void> => {
     try {
-        const params = JSON.parse(req.body.params)
+        const params: ConvertKleQmkParams = JSON.parse(req.body.params)
         const kb = params.kb
         const fileKb = kb.toLowerCase().replace(/-| /g, "_")
         const kbDir = fileKb.replace(/\/.*/g, "")
@@ -278,7 +307,8 @@ app.post('/convert/kle/qmk', multer().single('kle'), async (req, res) => {
         const rows = params.rows.split(",")
         const cols = params.cols.split(",")
 
-        const kle = bufferToJson(req.file.buffer)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const kle = bufferToJson((req as any).file.buffer)
         const kleFileName = 'kle.json'
         await cmd.writeFirmFiles(kleFileName, jsonToStr(kle))
 
@@ -293,10 +323,11 @@ app.post('/convert/kle/qmk', multer().single('kle'), async (req, res) => {
         }
 
         let json = 'keyboard.json'
-        let infoQmk = {}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let infoQmk: any = {}
         try {
             infoQmk = bufferToJson(await cmd.readQmkFile(fileKb, json))
-        } catch (_) {
+        } catch {
             json = 'info.json'
             infoQmk =bufferToJson(await cmd.readQmkFile(fileKb, json))
         }
@@ -319,15 +350,17 @@ app.post('/convert/kle/qmk', multer().single('kle'), async (req, res) => {
 
         let configQmk = ""
         try {
-            configQmk = await cmd.readQmkFile(fileKb, 'config.h')
-        } catch (_) { }
+            configQmk = (await cmd.readQmkFile(fileKb, 'config.h')).toString()
+        } catch { 
+            // Ignore errors when config.h doesn't exist
+        }
         if (option === 1) {
-            configQmk = await cmd.readFirmFiles('config.h')
+            configQmk = (await cmd.readFirmFiles('config.h')).toString()
         }
         if(configQmk !== "") {
             await cmd.writeQmkFile(fileKb, 'config.h', configQmk)
         }
-        const kmFirm = await cmd.readFirmFiles('keymap.c')
+        const kmFirm = (await cmd.readFirmFiles('keymap.c')).toString()
         await cmd.writeQmkFile(fileKb, 'keymaps/default/keymap.c', kmFirm)
 
         if (option === 1) {
@@ -349,9 +382,10 @@ app.post('/convert/kle/qmk', multer().single('kle'), async (req, res) => {
 
 
 
-app.post('/convert/vil/keymap_c',  multer().fields([{name: 'vil'}]), async (req, res) => {
+app.post('/convert/vil/keymap_c',  multer().fields([{name: 'vil'}]), async (req: Request, res: Response): Promise<void> => {
     try {
-        const keymap = vial2c(bufferToJson(req.files['vil'][0].buffer))
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const keymap = vial2c(bufferToJson((req as any).files['vil'][0].buffer))
         await cmd.write(`${cmd.dirClient}/keymap.c`, keymap)
         await exec(`chmod 777 -R ${cmd.dirClient}/keymap.c`)
         res.send("finish!!")
